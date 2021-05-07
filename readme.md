@@ -16,3 +16,4 @@
 ### ТЕСТОВЫЕ ПОЛЬЗОВАТЕЛИ	
 - users: user: 1@a.ru password: 1, user: 2@a.ru password: 1
 - admins: user 3@a.ru password: 1, user 4@a.ru password: 1
+
