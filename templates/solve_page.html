@@ -10,13 +10,6 @@
         {{message}}
     </div>
     {% endif %}
-    <label class="form-label">{{ form.title.label }}</label>
-    <div>{{ form.title(class="form-control") }}</div>
-    {% for error in form.title.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
     <label class="form-label"> {{ form.content.label }}</label>
     <div>{{ form.content(class="form-control") }}</div>
     {% for error in form.content.errors %}

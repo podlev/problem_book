@@ -3,7 +3,6 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.exceptions import abort
 from flask_restful import reqparse, abort, Api, Resource
 
-import task_api
 from data import db_session
 from data.solves import Solve
 from data.tasks import Task
@@ -28,9 +27,9 @@ def main():
     app.run(debug=True, port=8000, host='127.0.0.1')
 
 
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
+# @app.errorhandler(404)
+# def not_found(error):
+#     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 @login_manager.user_loader
@@ -186,7 +185,7 @@ def edit_task(id):
 @login_required
 def news_delete(id):
     session = db_session.create_session()
-    task = session.query(Task).filter(Task.id == id, Task.user == current_user).first()
+    task = session.query(Task).filter(Task.id == id).first()
     if task:
         session.delete(task)
         session.commit()
@@ -249,9 +248,7 @@ def add_solve(task_id):
     if form.validate_on_submit():
         session = db_session.create_session()
         solve = Solve()
-        solve.title = form.title.data
         solve.content = form.content.data
-        solve.created_date = form.content.data
         solve.user = current_user
         solve.task_id = task_id
         session.merge(solve)
