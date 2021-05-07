@@ -281,5 +281,4 @@ def cchange_solve_status(id):
     return redirect('/solves')
 
 
-if __name__ == '__main__':
-    main()
+main()
