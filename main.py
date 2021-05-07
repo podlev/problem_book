@@ -24,7 +24,7 @@ def main():
     api.add_resource(TasksResource, '/api/v2/tasks/<int:task_id>')
     # app.register_blueprint(task_api.blueprint)
     db_session.global_init("db/python_tasks.sqlite")
-    app.run(debug=True, port=8000, host='127.0.0.1')
+    app.run()
 
 
 # @app.errorhandler(404)
@@ -281,4 +281,5 @@ def cchange_solve_status(id):
     return redirect('/solves')
 
 
-main()
+if __name__ == '__main__':
+    main()
