@@ -14,6 +14,5 @@
 - python main.py
 
 ### ТЕСТОВЫЕ ПОЛЬЗОВАТЕЛИ	
-- user:  1@a.ru password: 1
-- admin: 3@a.ru password: 1
+- admin: admin@admin.ru password: 123456
 
