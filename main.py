@@ -1,8 +1,9 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.exceptions import abort
 from flask_restful import reqparse, abort, Api, Resource
 
+import task_api
 from data import db_session
 from data.solves import Solve
 from data.tasks import Task
@@ -22,8 +23,14 @@ app.config['SECRET_KEY'] = '0YvRhNC/0YvQstGE0YvQutGD0YTRhg=='
 def main():
     api.add_resource(TasksListResource, '/api/v2/tasks')
     api.add_resource(TasksResource, '/api/v2/tasks/<int:task_id>')
+    # app.register_blueprint(task_api.blueprint)
     db_session.global_init("db/python_tasks.sqlite")
     app.run(debug=True, port=8000, host='127.0.0.1')
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 @login_manager.user_loader
@@ -36,9 +43,13 @@ def load_user(user_id):
 @app.route('/index')
 def index():
     session = db_session.create_session()
-    result = session.query(Task)[:3]
+    result = session.query(Task)[:-4:-1]
     return render_template("home_page.html", title='Главная страница', tasks=result)
 
+
+@app.route('/about')
+def about():
+    return render_template("about_page.html", title='О проекте')
 
 @app.route('/registration', methods=['GET', 'POST'])
 def reqistration():
@@ -106,11 +117,6 @@ def view_task(id):
     session = db_session.create_session()
     result = session.query(Task).filter(Task.id == id).first()
     return render_template('view_page.html', title=f'Задача «{result.title}»', task=result)
-
-
-@app.route('/about')
-def about():
-    abort(404)
 
 
 @app.route('/logout')
