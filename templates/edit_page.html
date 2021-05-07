@@ -15,7 +15,7 @@
     {% for item in tasks %}
     <tr>
         <th scope="row">{{ loop.index }}</th>
-        <td><a href="/view_task/{{ item.id }}">{{ item.title }}</a></td>
+        <td><a href="/tasks/{{ item.id }}">{{ item.title }}</a></td>
         <td><a href="/subjects/tasks/{{ item.subject }}">{{ item.subject }}</a></td>
         <td>{{ item.rating }}</td>
         <td>{% if current_user.is_authenticated and current_user.role == 'admin' %}

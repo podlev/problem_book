@@ -1,8 +1,20 @@
 {% extends "base_template.html" %}
 
 {% block main %}
-<h1>Добавить решение</h1>
-<form action="" method="post">
+<h1>Добавить решение к задаче «{{ task.title }}»</h1>
+<div class="card">
+    <div class="card-header">
+        Тема: <a href="/subjects/tasks/{{task.subject}}">{{task.subject}}</a>
+    </div>
+    <div class="card-body">
+        <h3 class="card-title">{{task.title}} </h3>
+        <p class="card-text word-wrap: break-word"><pre>{{task.content | safe}}</pre></p>
+    </div>
+    <div class="card-footer text-muted">
+        <span class="badge bg-primary">Автор: {{task.user.name}}</span>
+        <span class="badge bg-primary">Дата создания: {{task.created_date}}</span>
+        <span class="badge bg-danger">Сложность: {{task.rating}}</span>
+        <form action="" method="post">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     {% if message %}
@@ -20,4 +32,7 @@
     <hr class="my-4">
     <a>{{ form.submit(type="submit", class="w-100 btn btn-primary btn-lg") }}</a>
 </form>
+    </div>
+</div>
+
 {% endblock %}

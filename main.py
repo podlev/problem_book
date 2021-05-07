@@ -24,8 +24,8 @@ def main():
     api.add_resource(TasksResource, '/api/v2/tasks/<int:task_id>')
     db_session.global_init("db/python_tasks.sqlite")
     port = int(os.environ.get('PORT', 5000))
-    # app.run(host='127.0.0.1', port=port)
-    app.run(host='0.0.0.0', port=port)
+    # app.run(host='127.0.0.1', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 
 @login_manager.user_loader
@@ -242,6 +242,8 @@ def solves():
 @login_required
 def add_solve(task_id):
     form = SolveForm()
+    session = db_session.create_session()
+    t = session.query(Task).get(task_id)
     if form.validate_on_submit():
         session = db_session.create_session()
         solve = Solve()
@@ -250,8 +252,8 @@ def add_solve(task_id):
         solve.task_id = task_id
         session.merge(solve)
         session.commit()
-        return redirect(f'/tasks/{solve.task_id}')
-    return render_template('solve_page.html', title='Добавить задачу', form=form)
+        return redirect('/solves')
+    return render_template('solve_page.html', title='Добавить задачу', form=form, task=t)
 
 
 @app.route('/solve_delete/<int:id>')
