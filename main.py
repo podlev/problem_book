@@ -45,6 +45,7 @@ def index():
 def about():
     return render_template("about_page.html", title='О проекте')
 
+
 @app.route('/registration', methods=['GET', 'POST'])
 def reqistration():
     form = RegisterForm()
@@ -263,6 +264,7 @@ def solve_delete(id):
     else:
         abort(404)
     return redirect('/solves')
+
 
 @app.route('/change_solve_status/<int:id>')
 @login_required
