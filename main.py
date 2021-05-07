@@ -24,7 +24,7 @@ def main():
     api.add_resource(TasksResource, '/api/v2/tasks/<int:task_id>')
     # app.register_blueprint(task_api.blueprint)
     db_session.global_init("db/python_tasks.sqlite")
-    app.run()
+    app.run(debug=True)
 
 
 # @app.errorhandler(404)
