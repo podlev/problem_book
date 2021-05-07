@@ -17,7 +17,7 @@
         <th scope="row">{{ loop.index }}</th>
         <td>{{ item.name }}</td>
         <td>{{ item.role }}</td>
-        <td>{% if current_user.is_authenticated and current_user.role == 'admin' %}
+        <td>{% if current_user.is_authenticated and current_user.role == 'admin' and current_user.id != item.id %}
         <a href="/change_role/{{ item.id }}" class="btn btn-warning btn-sm">Сменить роль</a>
         <a href="/user_delete/{{ item.id }}" class="btn btn-danger btn-sm">Удалить</a>
         {% endif %}</td>
