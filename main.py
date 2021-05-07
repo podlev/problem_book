@@ -1,8 +1,8 @@
+import os
 from flask import Flask, render_template, redirect, request, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.exceptions import abort
 from flask_restful import reqparse, abort, Api, Resource
-
 from data import db_session
 from data.solves import Solve
 from data.tasks import Task
@@ -22,8 +22,9 @@ app.config['SECRET_KEY'] = '0YvRhNC/0YvQstGE0YvQutGD0YTRhg=='
 def main():
     api.add_resource(TasksListResource, '/api/v2/tasks')
     api.add_resource(TasksResource, '/api/v2/tasks/<int:task_id>')
-    # app.register_blueprint(task_api.blueprint)
     db_session.global_init("db/python_tasks.sqlite")
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
     app.run(debug=True)
 
 
