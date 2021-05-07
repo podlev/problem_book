@@ -1,0 +1,28 @@
+{% extends "base_template.html" %}
+
+{% block main %}
+<h1>Темы</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Задача</th>
+        <th scope="col">Тема</th>
+        <th scope="col">Сложность</th>
+        <th scope="col">Действие</th>
+    </tr>
+    </thead>
+    {% for item in tasks %}
+    <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td><a href="/view_task/{{ item.id }}">{{ item.title }}</a></td>
+        <td><a href="/subjects/tasks/{{ item.subject }}">{{ item.subject }}</a></td>
+        <td>{{ item.rating }}</td>
+        <td>{% if current_user.is_authenticated and current_user.role == 'admin' %}
+        <a href="/task_edit/{{ item.id }}" class="btn btn-warning btn-sm">Изменить</a>
+        <a href="/task_delete/{{ item.id }}" class="btn btn-danger btn-sm">Удалить</a>
+        {% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

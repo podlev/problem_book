@@ -1,0 +1,45 @@
+{% extends "base_template.html" %}
+
+{% block main %}
+<h1>Добавить задачу</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    {% if message %}
+    <div class="alert alert-danger" role="alert">
+        {{message}}
+    </div>
+    {% endif %}
+    <label class="form-label">{{ form.title.label }}</label>
+    <div>{{ form.title(class="form-control") }}</div>
+    {% for error in form.title.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    <label class="form-label"> {{ form.content.label }}</label>
+    <div>{{ form.content(class="form-control") }}</div>
+    {% for error in form.content.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    <label class="form-label"> {{ form.subject.label }}</label>
+    <div>{{ form.subject(class="form-control") }}</div>
+    {% for error in form.subject.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    <label class="form-label"> {{ form.rating.label }}</label>
+    {{ form.rating(class="form-control") }}
+
+    {% for error in form.rating.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    <hr class="my-4">
+    <a>{{ form.submit(type="submit", class="w-100 btn btn-primary btn-lg") }}</a>
+</form>
+{% endblock %}

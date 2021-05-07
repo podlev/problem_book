@@ -1,0 +1,27 @@
+{% extends "base_template.html" %}
+
+
+{% block main %}
+<h1>Пользователи</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Пльзователь</th>
+        <th scope="col">Роль</th>
+        <th scope="col">Действие</th>
+    </tr>
+    </thead>
+    {% for item in items %}
+    <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.role }}</td>
+        <td>{% if current_user.is_authenticated and current_user.role == 'admin' %}
+        <a href="/change_role/{{ item.id }}" class="btn btn-warning btn-sm">Сменить роль</a>
+        <a href="/user_delete/{{ item.id }}" class="btn btn-danger btn-sm">Удалить</a>
+        {% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base_template.html" %}
+
+
+{% block main %}
+<h1>Мои решения</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Задача</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Решение</th>
+        <th scope="col">Оценка</th>
+        <th scope="col">Действие</th>
+    </tr>
+    </thead>
+    {% for item in solves %}
+    <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td><a href="/tasks/{{ item.task_id }}">{{ item.task.title }}</a></td>
+        <td>{{ item.created_date }}</a></td>
+        <td><pre>{{ item.content | safe}}</pre></td>
+        <td>{% if item.accept == True %}
+            <span class="badge bg-success">OK</span>
+            {% else %}
+            <span class="badge bg-secondary">Не зачтено</span>
+            {% endif %}
+        </td>
+        <td><a href="/solve_delete/{{ item.id }}" class="btn btn-danger btn-sm">Удалить</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

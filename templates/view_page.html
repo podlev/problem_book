@@ -1,0 +1,27 @@
+{% extends "base_template.html" %}
+
+
+{% block main %}
+<h1>Задача: «{{ task.title }}»</h1>
+<div class="card">
+    <div class="card-header">
+        Тема: <a href="/tasks/{{task.subject}}">{{task.subject}}</a>
+    </div>
+    <div class="card-body">
+        <h3 class="card-title">{{task.title}} </h3>
+        <p class="card-text word-wrap: break-word"><pre>{{task.content | safe}}</pre></p>
+        {% if current_user.is_authenticated and current_user.role == 'admin' %}
+        <a href="/task_edit/{{ task.id }}" class="btn btn-warning">Изменить</a>
+        <a href="/task_delete/{{ task.id }}" class="btn btn-danger">Удалить</a>
+        {% endif %}
+        {% if current_user.is_authenticated and current_user.role == 'user' %}
+        <a href="/add_solve/{{ task.id }}" class="btn btn-info">Сдать решение</a>
+        {% endif %}
+    </div>
+    <div class="card-footer text-muted">
+        <span class="badge bg-primary">Автор: {{task.user.name}}</span>
+        <span class="badge bg-primary">Дата создания: {{task.created_date}}</span>
+        <span class="badge bg-danger">Сложность: {{task.rating}}</span>
+    </div>
+</div>
+{% endblock %}
