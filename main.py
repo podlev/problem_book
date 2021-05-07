@@ -23,9 +23,8 @@ def main():
     api.add_resource(TasksListResource, '/api/v2/tasks')
     api.add_resource(TasksResource, '/api/v2/tasks/<int:task_id>')
     db_session.global_init("db/python_tasks.sqlite")
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-    app.run(debug=True)
 
 
 @login_manager.user_loader
