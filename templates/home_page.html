@@ -2,15 +2,16 @@
 
 {% block main %}
 <h1>Главная страница</h1>
-<div class="alert alert-primary" role="alert">
+<div class="alert alert-warning alert-dismissible fade show"  role="alert">
     <h4 class="alert-heading">Это сборник задач по программированию на языке Python.</h4>
     <p> Пользователь может: сдавать решения, управлять своими решениями.</p>
     <p>Администратор может: создавать задачи, редактировать, управлять пользователями, ставить оценки решениям
         пользователей.</p>
     <hr>
-    <p>Тестовый админ: <br>
-        3@a.ru<br>
-        1</p>
+    <p>Для тестирования можно использовать учетную запись администратора:<br>
+        Почта: admin@admin.ru<br>
+        Пароль: 123456</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <h3>Последние добавленые задачи:</h3>
 {% for task in tasks%}

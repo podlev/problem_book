@@ -17,6 +17,3 @@ class Solve(SqlAlchemyBase, SerializerMixin):
     created_date = sqlalchemy.Column(sqlalchemy.Date, default=datetime.date.today)
     user = orm.relation('User', back_populates='solve')
     task = orm.relation('Task', back_populates='solve')
-
-    def __repr__(self):
-        return f'Решение: {self.id}, {self.user_id}, {self.task_id}, {self.content}, {self.accept}'
